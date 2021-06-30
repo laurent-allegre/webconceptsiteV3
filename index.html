@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php error_reporting(0); ?>
 <html lang="fr">
    <head>
       <meta charset="UTF-8">
@@ -8,6 +9,7 @@
       <title>Bootstrap 5 Template perso</title>
       <!-- CSS -->
       <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/main.css">
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <!-- FONT -->
       <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -15,6 +17,29 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
    </head>
    <body>
+      <!--===TRAITEMENT  EN ENVOIS DES MAILS===-->
+      <?php
+if(isset($_POST['submit'])){
+    $name = htmlspecialchars(stripslashes(trim($_POST['name'])));
+    $subject = htmlspecialchars(stripslashes(trim($_POST['subject'])));
+    $email = htmlspecialchars(stripslashes(trim($_POST['email'])));
+    $message = htmlspecialchars(stripslashes(trim($_POST['message'])));
+    if(!preg_match("/^[A-Za-z .'-]+$/", $name)){
+        $name_error = 'Nom invalide';
+    }
+    if(!preg_match("/^[A-Za-z0-9 éçè.'-]+$/", $subject)){
+        $subject_error = 'Sujet invalide';
+    }
+    if(!preg_match("/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/", $email)){
+        $email_error = 'Email invalide';
+    }
+    if(strlen($message) === 0){
+        $message_error = 'Votre message est vide';
+    }
+}
+?>
+ <!--===FIN PHP===-->
+
       <!--== Barre de Navigation ==-->
       <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
          <div class="container-xxl container-fluid ">
@@ -26,23 +51,23 @@
             <div class="collapse navbar-collapse" id="navbarText">
                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                     <a class="nav-link active" aria-current="page" href="#">Home</a>
+                     <a class="nav-link active" aria-current="page" href="#">Accueil</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="#">Product</a>
+                     <a class="nav-link" href="#serv">Presentation</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="#">Services</a>
+                     <a class="nav-link" href="#featured-services">Services</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="#">Shop</a>
+                     <a class="nav-link" href="#about">Portfolio</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="#">Blog</a>
+                     <a class="nav-link" href="#contact">Contact</a>
                   </li>
                </ul>
                <span class="navbar-text">
-                  <a class="btn primary-button" href="#">Contact Us</a>
+                  <a class="btn primary-button" href="https://blog-master.web-concept-site.fr/">BLOG</a>
                </span>
             </div>
          </div>
@@ -75,7 +100,7 @@
 
        <!-- ======= serv Section ======= -->
 
-    <section class="serv">
+    <section id="serv" class="serv">
 
       <div class="container" data-aos="fade-up">
 
@@ -160,10 +185,8 @@
 
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
 
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon"><i class="bi bi-globe me-2 " style="font-size: 3rem; "></i></div>
               <h4 class="title">Sites sur mesure</h4>
 
               <p class="description">Je vous propose de créer votre site web entièrement sur mesure afin de répondre à vos besoins spécifiques. Développement de site Web standard ou sous WordPress. </p>
@@ -178,7 +201,7 @@
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
 
-              <div class="icon"><i class="bx bx-file"></i></div>
+               <div class="icon"><i class="bi bi-laptop" style="font-size: 3rem;"></i></div>
 
               <h4 class="title">Développement Web</h4>
 
@@ -194,7 +217,7 @@
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
 
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
+               <div class="icon"><i class="bi bi-lock-fill" style="font-size: 3rem;"></i></div>
 
               <h4 class="title">Sécurité Web</h4>
 
@@ -212,7 +235,7 @@
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
 
-              <div class="icon"><i class="bx bx-world"></i></div>
+               <div class="icon"><i class="bi bi-camera-fill" style="font-size: 3rem;"></i></div>
 
               <h4 class="title">Hébergement et Services-photos</h4>
 
@@ -232,6 +255,20 @@
 
     </section><!-- End Featured Services Section -->
 
+     <!-- ======= Testimonials Section ======= -->
+
+     <section id="testimonials" class="testimonials">
+      <div class="container" data-aos="zoom-in">
+         <div class="testimonial-item">
+            <!-- <img src="assets/img/testimonials/binary.jpg" class="testimonial-img" alt="">  -->  
+            <img src="img/WebConceptSitelogo.png" class="testimonial-img" alt="logo webconceptsite">
+            <h3>Services</h3>
+         </div>
+      </div>
+  </section><!-- End Testimonials Section -->
+
+    <!-- ======= Featured Services Section ======= -->
+
 
 
        <!--===Section logo Compagnies===-->
@@ -243,6 +280,7 @@
                   <div class="sticky-element">
                      <h3 class="text-heading text--violet">PORTFOLIO</h3>
                      <h2 class="text-heading">Consultez une partie des projets que j'ai réalisés.</h2>
+                     <img src="img/shaking-hands.jpg" alt="">
                   </div>
                </div>
                
@@ -572,11 +610,6 @@
                      </div>
                      <!-- Fin de la card-->
                     
-                 
-                     <div class="col-xl-12 col-lg-12 col-sm-12 about-link-container mt-5">
-                        <a class="btn primary-button" href="#">View more choices <i
-                           class="fas fa-arrow-right"></i></a>
-                     </div>
 
                   </div>
                </div>
@@ -588,118 +621,137 @@
 
       
      
-      <section id="testimonials" class="section">
-         <div class="space-between-blocks">
-            <div class="container">
-               <div class="row">
-                  <div class="col-md-8 offset-md-2 title-section">
-                     <h3 class="text-heading text--violet">CE QU'ILS DISENT DE NOUS</h3>
-                     <h2 class="text-heading">Approuvé par plus de 300 clients comme vous partout dans le monde.</h2>
-                  </div>
-                  <div class="row px-2 pt-4">
-                     <div class="col-lg-6 pb-5">
-                        <div class="testimonial-card-1">
-                           <p class="testimonial-card-1__paragraph">Knowledge base is one of the critical tools for both customer support and internal knowledge management. That’s why KB always aim to use the best technology available and do periodic market reviews to make sure we are using the latest and the most advanced tools. </p>
-                           <div class="testimonial-blk-person">
-                              <div><img class="testimonial-blk-person__avatar"
-                                 src="img/mark-doe.jpg" alt="photo contributeur"></div>
-                              <div class="px-2"></div>
-                              <div class="flex-grow-1 d-flex flex-column"><span class="testimonial-blk-person__rating"><i
-                                 class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                 class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                 class="fas fa-star"></i></span><span class="testimonial-blk-person__name my-1">Mark
-                                 Doe</span><span class="testimonial-blk-person__info">XYZ Company</span>
-                              </div>
-                           </div>
-                           <span class="testimonial-card-1__quote-symbol"><i
-                              class="fas fa-quote-left"></i></span>
-                        </div>
-                     </div>
-                     <div class="col-lg-6 pb-5">
-                        <div class="testimonial-card-1">
-                           <p class="testimonial-card-1__paragraph">My experience with KB goes back several years. I've had a few KB programs over the years because I create and manage multiple websites. I recently made the decision to have all of our KB's convert to KB and I've been very, very pleased.</p>
-                           <div class="testimonial-blk-person">
-                              <div><img class="testimonial-blk-person__avatar"
-                                 src="img/chris-doe.jpg" alt="photo contributeur"></div>
-                              <div class="px-2"></div>
-                              <div class="flex-grow-1 d-flex flex-column"><span class="testimonial-blk-person__rating"><i
-                                 class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                 class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                 class="fas fa-star"></i></span><span
-                                 class="testimonial-blk-person__name my-1">Chris Doe</span><span
-                                 class="testimonial-blk-person__info">CHO Digital</span></div>
-                           </div>
-                           <span class="testimonial-card-1__quote-symbol"><i
-                              class="fas fa-quote-left"></i></span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
+     
 
       <!--=== FOOTER ===-->
       <section id="contact" class="section">
          <div class="container">
-            <div class="row">
-               <div class="col-md-6 offset-md-3 title-section">
-                  <h2 class="text-heading section-heading">Obtenez plus d'aide</h2>
-                  <p>Ici, nous avons plus de moyens d'obtenir de l'aide de vrais humains.</p>
-               </div>
-            </div>
+           
             <div class="row">
                <div class="col-lg-3 col-sm-6 col-xs-12">
                   <a href="#">
-                     <div class="card">
+                     <div class="card h-100">
                         <i class="fas fa-user-friends"></i>
-                        <p>Forums</p>
+                        <h5>Adresse</h5>
+                        <p>78 Allée de la Résistance - 84170 Monteux</p>
                      </div>
                   </a>
                </div>
                <div class="col-lg-3 col-sm-6 col-xs-12">
                   <a href="#">
-                     <div class="card">
-                        <i class="fab fa-twitter"></i>
-                        <p>Twitter Support</p>
+                     <div class="card h-100">
+                        <i class="fab fa-github"></i>
+                        <h5>Github</h5>
+                        <p>https://github.com/laurent-allegre</p>
                      </div>
                   </a>
                </div>
                <div class="col-lg-3 col-sm-6 col-xs-12">
                   <a href="#">
-                     <div class="card">
+                     <div class="card h-100">
                         <i class="fas fa-envelope"></i>
-                        <p>Email Us</p>
+                        <h5>Email</h5>
+                        <p>laurent.allegre@web-concept-site.fr</p>
                      </div>
                   </a>
                </div>
                <div class="col-lg-3 col-sm-6 col-xs-12">
                   <a href="#">
-                     <div class="card">
+                     <div class="card h-100">
                         <i class="fas fa-phone-alt"></i>
-                        <p>Phone Call</p>
+                        <h5>Téléphone</h5>
+                        <p>06 89 38 34 90</p>
                      </div>
                   </a>
                </div>
             </div>
          </div>
+         <!--=== FOOTER ===-->
+         <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+            
+            <div class="row align-items-center g-lg-5 py-5">
+               
+                    <div class="contact1">
+                        <div class="contact1">
+                            <div class="contact1-pic js-tilt" data-tilt>
+                                <img src="img/img-01.png" alt="IMG">
+                            </div>
+        
+                              <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" class="requires-validation contact1-form" novalidate>
+                                  <span class="contact1-form-title">Pour nous écrire, Remplissez les données ci-dessous.</span>
+        
+                                <div class="wrap-input1 validate-input" data-validate = "Name is required">
+                                    <input class="input1" type="text" name="name" placeholder="Nom" >
+                                    <span class="shadow-input1"></span>
+                                    <p class="text-white text-center"><?php if(isset($name_error)) echo $name_error; ?></p>
+        
+                                </div>
+        
+                                <div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                                    <input class="input1" type="text" name="email" placeholder="Email">
+                                    <span class="shadow-input1"></span>
+                                    <p class="text-white text-center"><?php if(isset($email_error)) echo $email_error; ?></p>
+        
+                                </div>
+        
+                                <div class="wrap-input1 validate-input" data-validate = "Subject is required">
+                                    <input class="input1" type="text" name="subject" placeholder="Sujet">
+                                    <span class="shadow-input1"></span>
+                                    <p class="text-white text-center"><?php if(isset($subject_error)) echo $subject_error; ?></p>
+        
+                                </div>
+        
+                                <div class="wrap-input1 validate-input" data-validate = "Message is required">
+                                    <textarea class="input1" name="message" placeholder="Message"></textarea>
+                                    <span class="shadow-input1"></span>
+                                    <p class="text-white text-center"><?php if(isset($message_error)) echo $message_error; ?></p>
+        
+                                </div>
+        
+                                <div class="container-contact1-form-btn">
+                                    <button id="submit" name="submit" value="Submit" type="submit" class="contact1-form-btn">
+                          <span>
+                             Envoyer un email
+                             <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                          </span>
+                                    </button>
+                                </div>
+                                <?php
+                                if(isset($_POST['submit']) && !isset($name_error) && !isset($subject_error) && !isset($email_error) && !isset($message_error)){
+                                    $to = 'Ecrire ici votre email pour la réception des mails(contact@mail.com)'; // edit here
+                                    $body = " Nom: $name\n E-mail: $email\n Sujet: $subject\n Message:\n $message";
+                                    if(mail($to, $subject, $body)){
+                                        echo '<h5 class="text-center mt-1" style="color: green">Votre Message à bien été Envoyé</h5>';
+                                    }else{
+                                        echo "<h5>Une erreur s'est produite, veuillez réessayer plus tard</h5>";
+                                    }
+                                }
+                                ?>
+                            </form>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+         <!--=== FOOTER ===-->
+
+
       </section>
-      <footer>
+      <footer class="footer">
          <div class="container">
             <div class="row">
                <div class="col-md-9 col-sm-12  left">
                   <ul>
                      <li>
-                        <a href="#" class="nav-link">Home</a>
+                        <p>&copy; Copyright 2021 and Designed<strong><span> Web Concept Site</span></strong>. </p>
                      </li>
                      <li>
-                        <a href="#" class="nav-link">Docs</a>
+                        <i class="fab fa-github"></i>
+                        <a href="https://github.com/laurent-allegre">Github</a>
                      </li>
                      <li>
-                        <a href="#" class="nav-link">Changelog</a>
-                     </li>
-                     <li>
-                        <a href="#" class="nav-link">Purchase</a>
+                        <i class="fab fa-linkedin"></i>
+                        <a href="https://www.linkedin.com/in/laurent-allegre-72225a93">Linkedin</a>
                      </li>
                   </ul>
                </div>
